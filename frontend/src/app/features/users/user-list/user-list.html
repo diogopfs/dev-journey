@@ -1,0 +1,70 @@
+<section class="card">
+  <header class="page-header">
+    <h1>Usuários</h1>
+    @if (auth.isAdmin()) {
+      <a routerLink="/users/new" class="button primary">+ Novo usuário</a>
+    }
+  </header>
+
+  <input
+    type="search"
+    placeholder="Buscar por nome ou e-mail..."
+    [value]="search()"
+    (input)="onSearch($any($event.target).value)"
+  />
+
+  @if (loadError()) {
+    <div class="alert">{{ loadError() }}</div>
+  }
+  @if (actionError()) {
+    <div class="alert">{{ actionError() }}</div>
+  }
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Perfil</th>
+          <th>Status</th>
+          <th>Criado em</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of result.value()?.items ?? []; track user.id) {
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td><span class="badge" [class.admin]="user.role === 'Admin'">{{ user.role }}</span></td>
+            <td>
+              <span class="badge" [class.inactive]="!user.isActive">{{ user.isActive ? 'Ativo' : 'Inativo' }}</span>
+            </td>
+            <td>{{ user.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="actions">
+              @if (canEdit(user)) {
+                <a [routerLink]="['/users', user.id, 'edit']">Editar</a>
+              }
+              @if (auth.isAdmin() && auth.user()?.id !== user.id) {
+                <button type="button" class="link danger" (click)="remove(user)">Excluir</button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="muted">{{ result.isLoading() ? 'Carregando...' : 'Nenhum usuário encontrado.' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (result.value(); as paged) {
+    <footer class="pagination">
+      <button type="button" [disabled]="paged.page <= 1" (click)="goTo(paged.page - 1)">‹ Anterior</button>
+      <span>Página {{ paged.page }} de {{ paged.totalPages || 1 }} · {{ paged.totalCount }} registro(s)</span>
+      <button type="button" [disabled]="paged.page >= paged.totalPages" (click)="goTo(paged.page + 1)">Próxima ›</button>
+    </footer>
+  }
+</section>

@@ -1,0 +1,47 @@
+<section class="card">
+  <header class="page-header">
+    <div>
+      <h1>Auditoria</h1>
+      <p class="muted">
+        Fluxo: API publica evento → RabbitMQ → Worker consome → grava no MongoDB → esta tela lê do MongoDB.
+      </p>
+    </div>
+    <button type="button" (click)="logs.reload()" [disabled]="logs.isLoading()">↻ Atualizar</button>
+  </header>
+
+  @if (loadError()) {
+    <div class="alert">{{ loadError() }}</div>
+  }
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Quando</th>
+          <th>Evento</th>
+          <th>Latência</th>
+          <th>Payload (documento MongoDB)</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (log of logs.value() ?? []; track log.eventId) {
+          <tr>
+            <td>{{ log.occurredAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td><span class="badge">{{ log.eventType }}</span></td>
+            <td>{{ latencyMs(log) }} ms</td>
+            <td>
+              <details>
+                <summary>ver JSON</summary>
+                <pre>{{ payload(log) | json }}</pre>
+              </details>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="muted">{{ logs.isLoading() ? 'Carregando...' : 'Nenhum evento registrado ainda.' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

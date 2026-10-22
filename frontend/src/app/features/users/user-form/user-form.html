@@ -1,0 +1,57 @@
+<section class="card form-card">
+  <h1>{{ isEdit() ? 'Editar usuário' : 'Novo usuário' }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label>
+      Nome
+      <input formControlName="name" />
+    </label>
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small class="field-error">O nome deve ter entre 3 e 120 caracteres.</small>
+    }
+
+    <label>
+      E-mail
+      <input type="email" formControlName="email" />
+    </label>
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="field-error">Informe um e-mail válido.</small>
+    }
+
+    @if (!isEdit()) {
+      <label>
+        Senha
+        <input type="password" formControlName="password" autocomplete="new-password" />
+      </label>
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <small class="field-error">Mínimo de 8 caracteres, com maiúscula, minúscula, número e caractere especial.</small>
+      }
+    }
+
+    @if (auth.isAdmin()) {
+      <label>
+        Perfil
+        <select formControlName="role">
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </label>
+
+      @if (isEdit()) {
+        <label class="checkbox">
+          <input type="checkbox" formControlName="isActive" />
+          Usuário ativo
+        </label>
+      }
+    }
+
+    @if (error()) {
+      <div class="alert">{{ error() }}</div>
+    }
+
+    <div class="form-actions">
+      <a routerLink="/users" class="button">Cancelar</a>
+      <button type="submit" class="primary" [disabled]="loading()">Salvar</button>
+    </div>
+  </form>
+</section>

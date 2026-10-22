@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <a routerLink="/users" class="brand">🚀 DevJourney</a>
+  <div class="nav-links">
+    <a routerLink="/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Usuários</a>
+    @if (auth.isAdmin()) {
+      <a routerLink="/audit" routerLinkActive="active">Auditoria</a>
+    }
+    <a routerLink="/account/password" routerLinkActive="active">Alterar senha</a>
+  </div>
+  <div class="nav-user">
+    <span>{{ auth.user()?.name }} <small class="badge" [class.admin]="auth.isAdmin()">{{ auth.user()?.role }}</small></span>
+    <button type="button" (click)="auth.logout()">Sair</button>
+  </div>
+</nav>
+
+<main class="container">
+  <router-outlet />
+</main>

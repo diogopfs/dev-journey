@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+*.swp
+
+# Node / Angular (ver também frontend/.gitignore)
+node_modules/
+dist/
+.angular/
+
+# Ambiente
+.env
+.DS_Store
+.idea/

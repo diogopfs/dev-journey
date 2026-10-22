@@ -1,0 +1,29 @@
+### Arquivo para testar a API direto do VS Code (extensão REST Client) ou do Visual Studio/Rider.
+@baseUrl = http://localhost:5000
+
+### 1) Login (copie o accessToken da resposta para a variável abaixo)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@devjourney.local", "password": "Admin@123" }
+
+###
+@token = COLE_O_ACCESS_TOKEN_AQUI
+
+### 2) Listar usuários
+GET {{baseUrl}}/api/users?search=&page=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 3) Criar usuário (somente Admin) -> publica "user.created" no RabbitMQ
+POST {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "Maria Silva", "email": "maria@teste.com", "password": "Senha@123", "role": "User" }
+
+### 4) Logs de auditoria (vindos do MongoDB)
+GET {{baseUrl}}/api/audit-logs?limit=20
+Authorization: Bearer {{token}}
+
+### 5) Health check de prontidão (Postgres, MongoDB, RabbitMQ)
+GET {{baseUrl}}/health/ready

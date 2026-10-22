@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DevJourney.Api/DevJourney.Api.csproj" />
+    <Project Path="src/DevJourney.Application/DevJourney.Application.csproj" />
+    <Project Path="src/DevJourney.Domain/DevJourney.Domain.csproj" />
+    <Project Path="src/DevJourney.Infrastructure/DevJourney.Infrastructure.csproj" />
+    <Project Path="src/DevJourney.Worker/DevJourney.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DevJourney.UnitTests/DevJourney.UnitTests.csproj" />
+  </Folder>
+</Solution>

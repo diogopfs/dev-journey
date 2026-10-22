@@ -1,0 +1,122 @@
+/* Estilos globais simples, sem bibliotecas de UI, para manter o foco na arquitetura. */
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --radius: 10px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { margin: 0 0 1rem; font-size: 1.5rem; }
+code { background: #eef2ff; padding: 0 4px; border-radius: 4px; }
+pre { margin: 0.5rem 0 0; font-size: 0.8rem; white-space: pre-wrap; }
+
+.container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+}
+.auth-card { max-width: 420px; margin: 10vh auto 0; }
+.form-card { max-width: 560px; margin: 0 auto; }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.brand { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+.nav-links { display: flex; gap: 1rem; flex: 1; }
+.nav-links a { color: var(--muted); }
+.nav-links a.active { color: var(--primary); font-weight: 600; }
+.nav-user { display: flex; align-items: center; gap: 0.75rem; }
+
+form { display: flex; flex-direction: column; gap: 0.75rem; }
+label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.9rem; font-weight: 500; }
+label.checkbox { flex-direction: row; align-items: center; gap: 0.5rem; }
+
+input, select {
+  font: inherit;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+input:focus, select:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
+input[type='search'] { width: 100%; margin-bottom: 1rem; }
+input[type='checkbox'] { width: auto; }
+
+button, .button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  display: inline-block;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.primary:hover:not(:disabled) { background: var(--primary-hover); text-decoration: none; }
+button.link { border: none; background: none; padding: 0; color: var(--primary); }
+.danger { color: var(--danger) !important; }
+
+.alert {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+  margin: 0.5rem 0;
+}
+.alert.success { background: #f0fdf4; color: var(--success); border-color: #bbf7d0; }
+.field-error { color: var(--danger); margin-top: -0.5rem; }
+.muted { color: var(--muted); }
+
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+td.actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge.admin { background: #eef2ff; color: var(--primary); }
+.badge.inactive { background: #f3f4f6; color: var(--muted); }
+
+.pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
